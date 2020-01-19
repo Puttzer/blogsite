@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>blog</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <h4>You are logged in as <%= user %></h4>
+      <form action="/logout" method="POST">
+        <input type="submit" value="Log out" />
+      </form>
+      <div class="postControls">
+        <form action="/add" method="POST"></form>
+      </div>
+    </div>
+
+    <script src="/public/js/app.js"></script>
+  </body>
+</html>
