@@ -120,12 +120,26 @@ app.post("/add", authorize, (req, res) => {
 //Deleting of a post
 app.post("/delete/:id", authorize, (req, res) => {
   const id = req.params.id;
-  const post = posts.find(post => post._id != id);
+  const post = posts.find(post => post._id == id);
   if (post.owner == req.session.userID) {
+    posts = posts.filter(newPost => newPost._id != id);
     fs.writeFileSync("./data/posts.json", JSON.stringify(posts));
     redirect("/");
   } else {
     res.status(403).send("Access denied.");
+  }
+});
+
+//editing of a post
+app.post("/edit/:id", authorize, (req, res) => {
+  const id = req.params.id;
+  const post = posts.find(post => post._id == id);
+  if (post.owner == req.session.userID) {
+    post.content = req.body.content;
+    fs.writeFileSync("./data/posts.json", JSON.stringify(posts));
+    res.redirect("/");
+  } else {
+    res.status(403).send("Unauthorized");
   }
 });
 
