@@ -93,9 +93,7 @@ app.post("/login", async (req, res) => {
     }
   } else {
     //if
-    res.send(
-      "Error message for a number of errors there could be. Find out what stupid!"
-    );
+    res.send("Incorrect login");
   }
 });
 
@@ -124,13 +122,13 @@ app.post("/delete/:id", authorize, (req, res) => {
   if (post.owner == req.session.userID) {
     posts = posts.filter(newPost => newPost._id != id);
     fs.writeFileSync("./data/posts.json", JSON.stringify(posts));
-    redirect("/");
+    res.redirect("/");
   } else {
     res.status(403).send("Access denied.");
   }
 });
 
-//editing of a post
+//Editing of a post
 app.post("/edit/:id", authorize, (req, res) => {
   const id = req.params.id;
   const post = posts.find(post => post._id == id);
